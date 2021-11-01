@@ -1,1 +1,1 @@
-# team-profiler
+# team-profile-generator
