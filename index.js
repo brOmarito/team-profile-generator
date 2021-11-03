@@ -5,6 +5,8 @@ const inquirer = require('inquirer');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 const Manager = require('./lib/Manager');
+
+// Question Info
 const {
     managerQuestions,
     internQuestions,
@@ -14,11 +16,16 @@ const {
     continueQuestion,
 } = require('./lib/Questions');
 
+// HTML Generator
+const templateHelper = require('./src/templateHelper');
+
 // Employee Array
 const employees = [];
 
-function generateHtml() {
-    console.log("Generate the HTML");
+function writeToFile() {
+    fs.writeFile("./dist/output/teamProfile.html", templateHelper.generateHtml(employees), (error) => {
+        error ? console.log("Error when writing the file: " + error) : console.log("File created successfully!");
+    });
 }
 
 function promptContinue() {
@@ -27,7 +34,7 @@ function promptContinue() {
             if (answers.continue === "Yes") {
                 promptEmployeeType();
             } else {
-                generateHtml();
+                writeToFile();
             }
         });
 }
@@ -37,7 +44,7 @@ function promptIntern() {
     inquirer.prompt(generalQuestions.concat(internQuestions))
         .then(({id, name, email, school}) => {
             if (id && email && name) {
-                employees.push[new Intern(id, name, email, school)];
+                employees.push(new Intern(id, name, email, school));
                 promptContinue();
             } else {
                 promptIntern();
@@ -50,7 +57,7 @@ function promptEngineer() {
     inquirer.prompt(generalQuestions.concat(engineerQuestions))
         .then(({id, name, email, github}) => {
             if (id && email && name) {
-                employees.push[new Engineer(id, name, email, github)];
+                employees.push(new Engineer(id, name, email, github));
                 promptContinue();
             } else {
                 promptEngineer();
@@ -67,7 +74,7 @@ function promptEmployeeType() {
             } else if (type === "Intern") {
                 promptIntern();
             } else {
-                generateHtml();
+                writeToFile();
             }
         });
 }
@@ -76,7 +83,7 @@ function init() {
     inquirer.prompt(managerQuestions)
         .then(({id, name, email, officeNumber}) => {
             if (id && name && email && officeNumber) {
-                employees.push[new Manager(id, name, email, officeNumber)];
+                employees.push(new Manager(id, name, email, officeNumber));
                 promptEmployeeType();
             } else {
                 console.log("Please provide all of the requested information.");
