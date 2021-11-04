@@ -34,7 +34,7 @@ const employeeTemplate = `<div class="card">
     <h5 class="card-title">{{EMPLOYEE_NAME}}</h5>
     <p class="card-text employee-info">
         ID: {{EMPLOYEE_ID}}<br>
-        Email: <a href="mailto:{{EMPLOYEE_EMAIL}}" target="_blank" rel="noopener noreferrer">{{EMPLOYEE_EMAIL}}</a><br>
+        Email: <a href="mailto:{{EMPLOYEE_EMAIL}}">{{EMPLOYEE_EMAIL}}</a><br>
         {{CUSTOM_SECT}}
     </p>
 </div>
@@ -43,7 +43,7 @@ const employeeTemplate = `<div class="card">
 
 const managerString = `Office Number: {{OFFICE_NUMBER}}`;
 
-const engineerString = `GitHub: <a href="https://github.com/{{GITHUB}}">{{GITHUB}}</a>`;
+const engineerString = `GitHub: <a href="https://github.com/{{GITHUB}}" target="_blank" rel="noopener noreferrer">{{GITHUB}}</a>`;
 
 const internString = `School: {{SCHOOL}}`;
 
